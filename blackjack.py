@@ -4,6 +4,11 @@ import os
 import sys
 from cards import Hand, Deck, Card
 
+# Constants
+DEALER_CONSTANT = 17
+GOAL_CONSTANT = 21
+MIN_NUMBER_CARDS_IN_DECK = 15
+
 def ask_how_much_money(question, cur_money=sys.maxsize):
     while True:
         input_money = input(question)
@@ -66,18 +71,18 @@ def play_round(deck):
             playerHand.add_card(deck.deal())
             print("You have: ")
             playerHand.show()
-            if playerHand.cur_value == 21:
+            if playerHand.cur_value == GOAL_CONSTANT:
                 win_statement("You", playerHand.cur_value)
                 return playerHand, dealerHand, deck
-            if playerHand.cur_value > 21:
+            if playerHand.cur_value > GOAL_CONSTANT:
                 lose_statement("You", playerHand.cur_value)
                 return playerHand, dealerHand, deck
 
         if action in ['2', 'S', 's']:
-            while dealerHand.cur_value < 17:
+            while dealerHand.cur_value < DEALER_CONSTANT:
                 dealerHand.add_card(deck.deal())
                 dealerHand.show(partial=True)
-            if dealerHand.cur_value > 21:
+            if dealerHand.cur_value > GOAL_CONSTANT:
                 print("The dealer has: ")
                 dealerHand.show()
                 lose_statement("Dealer", dealerHand.cur_value)
@@ -97,13 +102,13 @@ def main():
         print("Currently you have " +str(money) + " money")
         if new_round():
             bet = ask_how_much_money("How much money do you want to bet? \n", money)
-            if deck.cards_left < 10:
+            if len(deck.cards) < MIN_NUMBER_CARDS_IN_DECK:
                 # reshuffle the cards, and start off with a full deck if have less than 10 cards
                 deck = Deck()
             playerHand, dealerHand, deck = play_round(deck)
-            if playerHand.cur_value == 21 or dealerHand.cur_value > 21:
+            if playerHand.cur_value == GOAL_CONSTANT or dealerHand.cur_value > GOAL_CONSTANT:
                 money += bet
-            elif playerHand.cur_value > 21:
+            elif playerHand.cur_value > GOAL_CONSTANT:
                 money -= bet
             elif playerHand.cur_value > dealerHand.cur_value:
                 win_statement("You", playerHand.cur_value)
@@ -123,9 +128,9 @@ if __name__ == '__main__':
     try:
         main()
         sys.exit(0)
-    except KeyboardInterrupt as e:  # Ctrl-C
+    except KeyboardInterrupt as e:
         raise e
-    except SystemExit as e:  # sys.exit()
+    except SystemExit as e:
         raise e
     except Exception as e:
         print('ERROR, UNEXPECTED EXCEPTION')
