@@ -14,6 +14,10 @@ The deck only takes up the previously used cards once the number of cards fall b
 
 The deck and hands store the cards as a list
 
+When taking user inputs, the same question is repeated until the user gives a valid input
+
+I chose to use python because it's an object oriented language and I'm very familiar with it
+
 # TO DO
 If I spent more than the recommended 3 hours on the game I would add more tests for the game such as:
 
