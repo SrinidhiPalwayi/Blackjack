@@ -21,7 +21,6 @@ class Card(object):
 
 
 class Deck(object):
-
     def __init__(self):
         self.cards = []
         for rank in CARD_RANKS:
@@ -41,10 +40,6 @@ class Deck(object):
             # is set high enough
             self.__init__()
             return self.cards.pop()
-
-
-
-
 
 
 class Hand(object):

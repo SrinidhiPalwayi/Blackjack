@@ -42,11 +42,6 @@ class HandTest(unittest.TestCase):
         self.assertEqual(test_player.cur_value, 15)
 
 
-class GameTest(unittest.TestCase):
-
-
-
-
 
 
 if __name__ == '__main__':
